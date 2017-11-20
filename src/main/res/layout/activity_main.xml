@@ -26,4 +26,11 @@
         android:layout_height="wrap_content"
         android:text="画笔加粗"/>
 
+    <Button
+        android:id="@+id/bt_save"
+        android:onClick="ClickSavePic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存图片"/>
+
 </LinearLayout>

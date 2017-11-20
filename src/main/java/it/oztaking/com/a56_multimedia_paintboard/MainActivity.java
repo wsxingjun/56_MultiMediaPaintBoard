@@ -1,17 +1,25 @@
 package it.oztaking.com.a56_multimedia_paintboard;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.stream.Stream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,6 +97,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickPaintBold(View v) {
         paint.setStrokeWidth(15);
+    }
+
+    //保存图片的功能
+    public void ClickSavePic(View v)  {
+        File file = new File(Environment.getExternalStorageDirectory().getPath(),"dazuo.png");
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            copyBitmap.compress(Bitmap.CompressFormat.PNG,100, fos);
+
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_MEDIA_MOUNTED);
+            intent.setData(Uri.fromFile(Environment.getExternalStorageDirectory()));
+            sendBroadcast(intent);
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
